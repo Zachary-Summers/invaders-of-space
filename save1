@@ -1,0 +1,74 @@
+import pygame, random, time, pyautogui
+pygame.init()
+w, h = 800,600
+screen = pygame.display.set_mode((w,h))
+COLOR = (0,255,0)
+radius = 5
+gx = 400
+gy = 500
+gx_change = 5
+ax_change = 0
+ax = 400
+ay = 50
+abulletx = ax
+abullety = 1000
+gbullety = gy
+gbulletx = gx + 40
+gbullety_change = -6
+abullety_change =  6
+abullet = (gbulletx,gbullety)
+b1x = 500
+b1y = 300
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                ax_change = -5
+            if event.key == pygame.K_RIGHT:
+                ax_change = 5
+            if event.key == pygame.K_SPACE:
+                if abullety >= w:
+                    abullety = ay
+                    abulletx = ax + 40
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
+                ax_change = 0
+    if gbullety <= 0:
+        gbullety = gy
+        gbulletx = gx
+    if gx + 80 >= 800:
+        gx_change = -gx_change
+    elif gx <= 0:
+        gx_change = -gx_change
+    if ax + 80 >= 800:
+        ax_change = -ax_change
+    elif ax <= 0:
+        ax_change = -ax_change
+    if gbulletx > ax and gbulletx < ax + 80 and gbullety > ay and gbullety < ay + 25:
+        gbullety = -10
+        COLOR = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
+    if abulletx > gx and abulletx < gx + 80 and abullety > gy and abullety < gy + 25:
+        abullety = 900
+        COLOR = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
+    if gbulletx > b1x and gbulletx < b1x + 80 and gbullety > b1y and gbullety < b1y + 25:
+        gbullety = -10
+        b1x = -100
+    if abulletx > b1x and abulletx < b1x + 80 and abullety > b1y and abullety < b1y + 25:
+        abullety = 900
+        b1x = -1000
+    gx += gx_change
+    ax += ax_change
+    abullety += abullety_change
+    gbullety += gbullety_change
+    grect = (gx, gy,  80, 25)
+    arect = (ax, ay, 80, 25)
+    b1rect = (b1x, b1y, 80,25)
+    screen.fill((0,0,0))
+    pygame.draw.circle(screen, COLOR, (gbulletx, gbullety), radius)
+    pygame.draw.circle(screen, COLOR, (abulletx, abullety), radius)
+    pygame.draw.rect(screen,COLOR,arect)
+    pygame.draw.rect(screen, COLOR, grect)
+    pygame.draw.rect(screen,COLOR,b1rect)
+    pygame.display.update()

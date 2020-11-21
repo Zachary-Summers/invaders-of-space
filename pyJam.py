@@ -1,0 +1,692 @@
+import pygame, pyautogui
+pyautogui.alert(text='This is Invaders of Space by Zachary Summers. It is like space invaders except you are the aliens. To move use the left and right arrow keys. To shoot use the space key. This game is for the PyJam November 2020 Game Jam. Sorry for any bugs, or lack of polish, I lost all my code and had to rush. The code is at https://github.com/Zachary-Summers/invaders-of-space. Have fun!', title='Invaders of Space')
+pygame.init()
+w, h = 800,600
+screen = pygame.display.set_mode((w,h))
+pygame.display.set_caption('Invaders of Space')
+COLOR = (0,255,0)
+radius = 5
+gx = 400
+gy = 500
+gx_change = 5
+ax_change = 0
+ax = 400
+ay = 50
+abulletx = ax
+abullety = 1000
+gbullety = gy
+gbulletx = gx + 40
+gbullety_change = -6
+abullety_change =  6
+abullet = (gbulletx,gbullety)
+b1x = 500
+b1y = 300
+b2x = 500 + 85
+b2y = 300
+b3x = 500 - 85
+b3y = 300
+b4x = 500 - 85 - 85 - 85
+b4y = 300
+b5x = 500 + 85 + 85
+b5y = 300
+b6x = 500 - 85 - 85
+b6y = 300
+b7x = 500 - 85 - 85 - 85 - 85
+b7y = 300
+b8x = 500 + 85 + 85 + 85 + 85
+b8y = 300
+b9x = 500 - 85 - 85 - 85 - 85 - 85
+b9y = 300
+level1 = True
+level2 = False
+level3 = False
+while level1:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                ax_change = -5
+            if event.key == pygame.K_RIGHT:
+                ax_change = 5
+            if event.key == pygame.K_SPACE:
+                if abullety >= w:
+                    abullety = ay
+                    abulletx = ax + 40
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
+                ax_change = 0
+    if gbullety <= 0:
+        gbullety = gy
+        gbulletx = gx
+    if gx + 80 >= 800:
+        gx_change = -gx_change
+    elif gx <= 0:
+        gx_change = -gx_change
+    if ax + 80 >= 800:
+        ax_change = -ax_change
+    elif ax <= 0:
+        ax_change = -ax_change
+    if gbulletx > ax and gbulletx < ax + 80 and gbullety > ay and gbullety < ay + 25:
+        gbullety = -10
+        b1x = 500
+        b1y = 300
+        b2x = 500 + 85
+        b2y = 300
+        b3x = 500 - 85
+        b3y = 300
+        b4x = 500 - 85 - 85 - 85
+        b4y = 300
+        b5x = 500 + 85 + 85
+        b5y = 300
+        b6x = 500 - 85 - 85
+        b6y = 300
+        b7x = 500 - 85 - 85 - 85 - 85
+        b7y = 300
+        b8x = 500 + 85 + 85 + 85 + 85
+        b8y = 300
+        b9x = 500 - 85 - 85 - 85 - 85 - 85
+        b9y = 300
+    if abulletx > gx and abulletx < gx + 80 and abullety > gy and abullety < gy + 25:
+        abullety = 900
+        level1 = False
+        level2 = True
+    if gbulletx > b1x and gbulletx < b1x + 80 and gbullety > b1y and gbullety < b1y + 25:
+        gbullety = -10
+        b1x = -100
+    if abulletx > b1x and abulletx < b1x + 80 and abullety > b1y and abullety < b1y + 25:
+        abullety = 900
+        b1x = -1000
+    if abulletx > b2x and abulletx < b2x + 80 and abullety > b2y and abullety < b2y + 25:
+        abullety = 900
+        b2x = -1000
+    if gbulletx > b2x and gbulletx < b2x + 80 and gbullety > b2y and gbullety < b2y + 25:
+        gbullety = -10
+        b2x = -100
+    if abulletx > b3x and abulletx < b3x + 80 and abullety > b3y and abullety < b3y + 25:
+        abullety = 900
+        b3x = -1000
+    if gbulletx > b3x and gbulletx < b3x + 80 and gbullety > b3y and gbullety < b3y + 25:
+        gbullety = -10
+        b3x = -100
+    if abulletx > b4x and abulletx < b4x + 80 and abullety > b4y and abullety < b4y + 25:
+        abullety = 900
+        b4x = -1000
+    if gbulletx > b4x and gbulletx < b4x + 80 and gbullety > b4y and gbullety < b4y + 25:
+        gbullety = -10
+        b4x = -100
+    if abulletx > b5x and abulletx < b5x + 80 and abullety > b5y and abullety < b5y + 25:
+        abullety = 900
+        b5x = -1000
+    if gbulletx > b5x and gbulletx < b5x + 80 and gbullety > b5y and gbullety < b5y + 25:
+        gbullety = -10
+        b5x = -100
+    if abulletx > b6x and abulletx < b6x + 80 and abullety > b6y and abullety < b6y + 25:
+        abullety = 900
+        b6x = -1000
+    if gbulletx > b6x and gbulletx < b6x + 80 and gbullety > b6y and gbullety < b6y + 25:
+        gbullety = -10
+        b6x = -100
+    if abulletx > b9x and abulletx < b7x + 80 and abullety > b7y and abullety < b7y + 25:
+        abullety = 900
+        b7x = -1000
+    if gbulletx > b7x and gbulletx < b7x + 80 and gbullety > b7y and gbullety < b7y + 25:
+        gbullety = -10
+        b7x = -100
+    if abulletx > b8x and abulletx < b8x + 80 and abullety > b8y and abullety < b8y + 25:
+        abullety = 900
+        b8x = -1000
+    if gbulletx > b8x and gbulletx < b8x + 80 and gbullety > b8y and gbullety < b8y + 25:
+        gbullety = -10
+        b8x = -100
+    if abulletx > b9x and abulletx < b9x + 80 and abullety > b9y and abullety < b9y + 25:
+        abullety = 900
+        b9x = -1000
+    if gbulletx > b9x and gbulletx < b9x + 80 and gbullety > b9y and gbullety < b9y + 25:
+        gbullety = -10
+        b9x = -100
+    gx += gx_change
+    ax += ax_change
+    abullety += abullety_change
+    gbullety += gbullety_change
+    grect = (gx, gy,  80, 25)
+    arect = (ax, ay, 80, 25)
+    b1rect = (b1x, b1y, 80,25)
+    b2rect = (b2x, b2y, 80,25)
+    b3rect = (b3x, b3y, 80,25)
+    b4rect = (b4x, b4y, 80,25)
+    b5rect = (b5x, b5y, 80,25)
+    b6rect = (b6x, b6y, 80,25)
+    b7rect = (b7x, b7y, 80,25)
+    b8rect = (b8x, b8y, 80,25)
+    b9rect = (b9x, b9y, 80,25)
+    screen.fill((0,0,0))
+    pygame.draw.circle(screen, COLOR, (gbulletx, gbullety), radius)
+    pygame.draw.circle(screen, COLOR, (abulletx, abullety), radius)
+    pygame.draw.rect(screen,COLOR,arect)
+    pygame.draw.rect(screen, COLOR, grect)
+    pygame.draw.rect(screen,COLOR,b1rect)
+    pygame.draw.rect(screen,COLOR,b2rect)
+    pygame.draw.rect(screen,COLOR,b3rect)
+    pygame.draw.rect(screen,COLOR,b4rect)
+    pygame.draw.rect(screen,COLOR,b5rect)
+    pygame.draw.rect(screen,COLOR,b6rect)
+    pygame.draw.rect(screen,COLOR,b7rect)
+    pygame.draw.rect(screen,COLOR,b8rect)
+    pygame.draw.rect(screen,COLOR,b9rect)
+    pygame.display.update()
+b1x = 500
+b1y = 300
+b2x = 500 + 85
+b2y = 300
+b3x = 500 - 85
+b3y = 300
+b4x = 500 - 85 - 85 - 85
+b4y = 300
+b5x = 500 + 85 + 85
+b5y = 300
+b6x = 500 - 85 - 85
+b6y = 300
+b7x = 500 - 85 - 85 - 85 - 85
+b7y = 300
+b8x = 500 + 85 + 85 + 85 + 85
+b8y = 300
+b9x = 500 - 85 - 85 - 85 - 85 - 85
+b9y = 300
+alien = 0
+ax = 400
+while level2:
+    ax2 = ax + 100
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                ax_change = -5
+            if event.key == pygame.K_RIGHT:
+                ax_change = 5
+            if event.key == pygame.K_SPACE:
+                if abullety >= w:
+                    if alien == 0:
+                        abulletx = ax + 42
+                        abullety = ay
+                        alien = 1
+                    elif alien == 1:
+                        abulletx = ax2 + 42
+                        abullety = ay
+                        alien = 0
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
+                ax_change = 0
+    if gbullety <= 0:
+        gbullety = gy
+        gbulletx = gx
+    if gx + 100 >= 800:
+        gx_change = -gx_change
+    elif gx <= 0:
+        gx_change = -gx_change
+    if ax + 100 + 80 >= 800:
+        ax_change = -ax_change
+    elif ax <= 0:
+        ax_change = -ax_change
+    if (gbulletx > ax and gbulletx < ax + 80 and gbullety > ay and gbullety < ay + 25) or (gbulletx > ax2 and gbulletx < ax2+ 80 and gbullety > ay and gbullety < ay + 25):
+        gbullety = -10
+        b1x = 500
+        b1y = 300
+        b2x = 500 + 85
+        b2y = 300
+        b3x = 500 - 85
+        b3y = 300
+        b4x = 500 - 85 - 85 - 85
+        b4y = 300
+        b5x = 500 + 85 + 85
+        b5y = 300
+        b6x = 500 - 85 - 85
+        b6y = 300
+        b7x = 500 - 85 - 85 - 85 - 85
+        b7y = 300
+        b8x = 500 + 85 + 85 + 85 + 85
+        b8y = 300
+        b9x = 500 - 85 - 85 - 85 - 85 - 85
+        b9y = 300
+    if abulletx > gx and abulletx < gx + 80 and abullety > gy and abullety < gy + 25:
+        abullety = 900
+        level2 = False
+        level3 = True
+    if gbulletx > b1x and gbulletx < b1x + 80 and gbullety > b1y and gbullety < b1y + 25:
+        gbullety = -10
+        b1x = -100
+    if abulletx > b1x and abulletx < b1x + 80 and abullety > b1y and abullety < b1y + 25:
+        abullety = 900
+        b1x = -1000
+    if abulletx > b2x and abulletx < b2x + 80 and abullety > b2y and abullety < b2y + 25:
+        abullety = 900
+        b2x = -1000
+    if gbulletx > b2x and gbulletx < b2x + 80 and gbullety > b2y and gbullety < b2y + 25:
+        gbullety = -10
+        b2x = -100
+    if abulletx > b3x and abulletx < b3x + 80 and abullety > b3y and abullety < b3y + 25:
+        abullety = 900
+        b3x = -1000
+    if gbulletx > b3x and gbulletx < b3x + 80 and gbullety > b3y and gbullety < b3y + 25:
+        gbullety = -10
+        b3x = -100
+    if abulletx > b4x and abulletx < b4x + 80 and abullety > b4y and abullety < b4y + 25:
+        abullety = 900
+        b4x = -1000
+    if gbulletx > b4x and gbulletx < b4x + 80 and gbullety > b4y and gbullety < b4y + 25:
+        gbullety = -10
+        b4x = -100
+    if abulletx > b5x and abulletx < b5x + 80 and abullety > b5y and abullety < b5y + 25:
+        abullety = 900
+        b5x = -1000
+    if gbulletx > b5x and gbulletx < b5x + 80 and gbullety > b5y and gbullety < b5y + 25:
+        gbullety = -10
+        b5x = -100
+    if abulletx > b6x and abulletx < b6x + 80 and abullety > b6y and abullety < b6y + 25:
+        abullety = 900
+        b6x = -1000
+    if gbulletx > b6x and gbulletx < b6x + 80 and gbullety > b6y and gbullety < b6y + 25:
+        gbullety = -10
+        b6x = -100
+    if abulletx > b9x and abulletx < b7x + 80 and abullety > b7y and abullety < b7y + 25:
+        abullety = 900
+        b7x = -1000
+    if gbulletx > b7x and gbulletx < b7x + 80 and gbullety > b7y and gbullety < b7y + 25:
+        gbullety = -10
+        b7x = -100
+    if abulletx > b8x and abulletx < b8x + 80 and abullety > b8y and abullety < b8y + 25:
+        abullety = 900
+        b8x = -1000
+    if gbulletx > b8x and gbulletx < b8x + 80 and gbullety > b8y and gbullety < b8y + 25:
+        gbullety = -10
+        b8x = -100
+    if abulletx > b9x and abulletx < b9x + 80 and abullety > b9y and abullety < b9y + 25:
+        abullety = 900
+        b9x = -1000
+    if gbulletx > b9x and gbulletx < b9x + 80 and gbullety > b9y and gbullety < b9y + 25:
+        gbullety = -10
+        b9x = -100
+    gx += gx_change
+    ax += ax_change
+    abullety += abullety_change
+    gbullety += gbullety_change
+    grect = (gx, gy,  80, 25)
+    arect = (ax, ay, 80, 25)
+    arect2 = (ax2, ay, 80, 25)
+    b1rect = (b1x, b1y, 80,25)
+    b2rect = (b2x, b2y, 80,25)
+    b3rect = (b3x, b3y, 80,25)
+    b4rect = (b4x, b4y, 80,25)
+    b5rect = (b5x, b5y, 80,25)
+    b6rect = (b6x, b6y, 80,25)
+    b7rect = (b7x, b7y, 80,25)
+    b8rect = (b8x, b8y, 80,25)
+    b9rect = (b9x, b9y, 80,25)
+    screen.fill((0,0,0))
+    pygame.draw.circle(screen, COLOR, (gbulletx, gbullety), radius)
+    pygame.draw.circle(screen, COLOR, (abulletx, abullety), radius)
+    pygame.draw.rect(screen,COLOR,arect)
+    pygame.draw.rect(screen,COLOR,arect2)
+    pygame.draw.rect(screen, COLOR, grect)
+    pygame.draw.rect(screen,COLOR,b1rect)
+    pygame.draw.rect(screen,COLOR,b2rect)
+    pygame.draw.rect(screen,COLOR,b3rect)
+    pygame.draw.rect(screen,COLOR,b4rect)
+    pygame.draw.rect(screen,COLOR,b5rect)
+    pygame.draw.rect(screen,COLOR,b6rect)
+    pygame.draw.rect(screen,COLOR,b7rect)
+    pygame.draw.rect(screen,COLOR,b8rect)
+    pygame.draw.rect(screen,COLOR,b9rect)
+    pygame.display.update()
+b1x = 500
+b1y = 300
+b2x = 500 + 85
+b2y = 300
+b3x = 500 - 85
+b3y = 300
+b4x = 500 - 85 - 85 - 85
+b4y = 300
+b5x = 500 + 85 + 85
+b5y = 300
+b6x = 500 - 85 - 85
+b6y = 300
+b7x = 500 - 85 - 85 - 85 - 85
+b7y = 300
+b8x = 500 + 85 + 85 + 85 + 85
+b8y = 300
+b9x = 500 - 85 - 85 - 85 - 85 - 85
+b9y = 300
+alien = 0
+ax = 400
+while level3:
+    ax2 = ax + 100
+    ax3 = ax - 100
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                ax_change = -5
+            if event.key == pygame.K_RIGHT:
+                ax_change = 5
+            if event.key == pygame.K_SPACE:
+                if abullety >= w:
+                    if alien == 0:
+                        abulletx = ax + 40
+                        abullety = ay
+                        alien = 1
+                    elif alien == 1:
+                        abulletx = ax2 + 40
+                        abullety = ay
+                        alien = 2
+                    elif alien == 2:
+                        abulletx = ax3 + 40
+                        abullety = ay
+                        alien = 0
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
+                ax_change = 0
+    if gbullety <= 0:
+        gbullety = gy
+        gbulletx = gx
+    if gx + 100 >= 800:
+        gx_change = -gx_change
+    elif gx <= 0:
+        gx_change = -gx_change
+    if ax + 100 + 80 >= 800:
+        ax_change = -ax_change
+    elif ax3 <= 0:
+        ax_change = -ax_change
+    if (gbulletx > ax and gbulletx < ax + 80 and gbullety > ay and gbullety < ay + 25) or (gbulletx > ax2 and gbulletx < ax2+ 80 and gbullety > ay and gbullety < ay + 25) or (gbulletx > ax3 and gbulletx < ax3 + 80 and gbullety > ay and gbullety < ay + 25):
+        gbullety = -10
+        b1x = 500
+        b1y = 300
+        b2x = 500 + 85
+        b2y = 300
+        b3x = 500 - 85
+        b3y = 300
+        b4x = 500 - 85 - 85 - 85
+        b4y = 300
+        b5x = 500 + 85 + 85
+        b5y = 300
+        b6x = 500 - 85 - 85
+        b6y = 300
+        b7x = 500 - 85 - 85 - 85 - 85
+        b7y = 300
+        b8x = 500 + 85 + 85 + 85 + 85
+        b8y = 300
+        b9x = 500 - 85 - 85 - 85 - 85 - 85
+        b9y = 300
+    if abulletx > gx and abulletx < gx + 80 and abullety > gy and abullety < gy + 25:
+        abullety = 900
+        level3 = False
+    if gbulletx > b1x and gbulletx < b1x + 80 and gbullety > b1y and gbullety < b1y + 25:
+        gbullety = -10
+        b1x = -100
+    if abulletx > b1x and abulletx < b1x + 80 and abullety > b1y and abullety < b1y + 25:
+        abullety = 900
+        b1x = -1000
+    if abulletx > b2x and abulletx < b2x + 80 and abullety > b2y and abullety < b2y + 25:
+        abullety = 900
+        b2x = -1000
+    if gbulletx > b2x and gbulletx < b2x + 80 and gbullety > b2y and gbullety < b2y + 25:
+        gbullety = -10
+        b2x = -100
+    if abulletx > b3x and abulletx < b3x + 80 and abullety > b3y and abullety < b3y + 25:
+        abullety = 900
+        b3x = -1000
+    if gbulletx > b3x and gbulletx < b3x + 80 and gbullety > b3y and gbullety < b3y + 25:
+        gbullety = -10
+        b3x = -100
+    if abulletx > b4x and abulletx < b4x + 80 and abullety > b4y and abullety < b4y + 25:
+        abullety = 900
+        b4x = -1000
+    if gbulletx > b4x and gbulletx < b4x + 80 and gbullety > b4y and gbullety < b4y + 25:
+        gbullety = -10
+        b4x = -100
+    if abulletx > b5x and abulletx < b5x + 80 and abullety > b5y and abullety < b5y + 25:
+        abullety = 900
+        b5x = -1000
+    if gbulletx > b5x and gbulletx < b5x + 80 and gbullety > b5y and gbullety < b5y + 25:
+        gbullety = -10
+        b5x = -100
+    if abulletx > b6x and abulletx < b6x + 80 and abullety > b6y and abullety < b6y + 25:
+        abullety = 900
+        b6x = -1000
+    if gbulletx > b6x and gbulletx < b6x + 80 and gbullety > b6y and gbullety < b6y + 25:
+        gbullety = -10
+        b6x = -100
+    if abulletx > b7x and abulletx < b7x + 80 and abullety > b7y and abullety < b7y + 25:
+        abullety = 900
+        b7x = -1000
+    if gbulletx > b7x and gbulletx < b7x + 80 and gbullety > b7y and gbullety < b7y + 25:
+        gbullety = -10
+        b7x = -100
+    if abulletx > b8x and abulletx < b8x + 80 and abullety > b8y and abullety < b8y + 25:
+        abullety = 900
+        b8x = -1000
+    if gbulletx > b8x and gbulletx < b8x + 80 and gbullety > b8y and gbullety < b8y + 25:
+        gbullety = -10
+        b8x = -100
+    if abulletx > b9x and abulletx < b9x + 80 and abullety > b9y and abullety < b9y + 25:
+        abullety = 900
+        b9x = -1000
+    if gbulletx > b9x and gbulletx < b9x + 80 and gbullety > b9y and gbullety < b9y + 25:
+        gbullety = -10
+        b9x = -100
+    gx += gx_change
+    ax += ax_change
+    abullety += abullety_change
+    gbullety += gbullety_change
+    grect = (gx, gy,  80, 25)
+    arect = (ax, ay, 80, 25)
+    arect2 = (ax2, ay, 80, 25)
+    arect3 = (ax3, ay, 80, 25)
+    b1rect = (b1x, b1y, 80,25)
+    b2rect = (b2x, b2y, 80,25)
+    b3rect = (b3x, b3y, 80,25)
+    b4rect = (b4x, b4y, 80,25)
+    b5rect = (b5x, b5y, 80,25)
+    b6rect = (b6x, b6y, 80,25)
+    b7rect = (b7x, b7y, 80,25)
+    b8rect = (b8x, b8y, 80,25)
+    b9rect = (b9x, b9y, 80,25)
+    screen.fill((0,0,0))
+    pygame.draw.circle(screen, COLOR, (gbulletx, gbullety), radius)
+    pygame.draw.circle(screen, COLOR, (abulletx, abullety), radius)
+    pygame.draw.rect(screen,COLOR,arect)
+    pygame.draw.rect(screen,COLOR,arect2)
+    pygame.draw.rect(screen,COLOR,arect3)
+    pygame.draw.rect(screen, COLOR, grect)
+    pygame.draw.rect(screen,COLOR,b1rect)
+    pygame.draw.rect(screen,COLOR,b2rect)
+    pygame.draw.rect(screen,COLOR,b3rect)
+    pygame.draw.rect(screen,COLOR,b4rect)
+    pygame.draw.rect(screen,COLOR,b5rect)
+    pygame.draw.rect(screen,COLOR,b6rect)
+    pygame.draw.rect(screen,COLOR,b7rect)
+    pygame.draw.rect(screen,COLOR,b8rect)
+    pygame.draw.rect(screen,COLOR,b9rect)
+    pygame.display.update()
+b1x = 500
+b1y = 300
+b2x = 500 + 85
+b2y = 300
+b3x = 500 - 85
+b3y = 300
+b4x = 500 - 85 - 85 - 85
+b4y = 300
+b5x = 500 + 85 + 85
+b5y = 300
+b6x = 500 - 85 - 85
+b6y = 300
+b7x = 500 - 85 - 85 - 85 - 85
+b7y = 300
+b8x = 500 + 85 + 85 + 85 + 85
+b8y = 300
+b9x = 500 - 85 - 85 - 85 - 85 - 85
+b9y = 300
+alien = 0
+ax = 400
+score = 0
+while True:
+    ax2 = ax + 100
+    ax3 = ax - 100
+    ax4 = ax + 200
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                ax_change = -5
+            if event.key == pygame.K_RIGHT:
+                ax_change = 5
+            if event.key == pygame.K_SPACE:
+                if abullety >= w:
+                    if alien == 0:
+                        abulletx = ax + 40
+                        abullety = ay
+                        alien = 1
+                    elif alien == 1:
+                        abulletx = ax2 + 40
+                        abullety = ay
+                        alien = 2
+                    elif alien == 2:
+                        abulletx = ax3 + 40
+                        abullety = ay
+                        alien = 3
+                    elif alien == 3:
+                        abulletx = ax4 + 40
+                        abullety = ay
+                        alien = 0
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
+                ax_change = 0
+    if gbullety <= 0:
+        gbullety = gy
+        gbulletx = gx
+    if gx + 100 >= 800:
+        gx_change = -gx_change
+    elif gx <= 0:
+        gx_change = -gx_change
+    if ax + 200 + 80 >= 800:
+        ax_change = -ax_change
+    elif ax3 <= 0:
+        ax_change = -ax_change
+    if (gbulletx > ax and gbulletx < ax + 80 and gbullety > ay and gbullety < ay + 25) or (gbulletx > ax2 and gbulletx < ax2+ 80 and gbullety > ay and gbullety < ay + 25) or (gbulletx > ax3 and gbulletx < ax3 + 80 and gbullety > ay and gbullety < ay + 25) or (gbulletx > ax4 and gbulletx < ax4 + 80 and gbullety > ay and gbullety < ay + 25):
+        gbullety = -10
+        b1x = 500
+        b1y = 300
+        b2x = 500 + 85
+        b2y = 300
+        b3x = 500 - 85
+        b3y = 300
+        b4x = 500 - 85 - 85 - 85
+        b4y = 300
+        b5x = 500 + 85 + 85
+        b5y = 300
+        b6x = 500 - 85 - 85
+        b6y = 300
+        b7x = 500 - 85 - 85 - 85 - 85
+        b7y = 300
+        b8x = 500 + 85 + 85 + 85 + 85
+        b8y = 300
+        b9x = 500 - 85 - 85 - 85 - 85 - 85
+        b9y = 300
+        score = 0
+    if abulletx > gx and abulletx < gx + 80 and abullety > gy and abullety < gy + 25:
+        abullety = 900
+        score += 1
+    if gbulletx > b1x and gbulletx < b1x + 80 and gbullety > b1y and gbullety < b1y + 25:
+        gbullety = -10
+        b1x = -100
+    if abulletx > b1x and abulletx < b1x + 80 and abullety > b1y and abullety < b1y + 25:
+        abullety = 900
+        b1x = -1000
+    if abulletx > b2x and abulletx < b2x + 80 and abullety > b2y and abullety < b2y + 25:
+        abullety = 900
+        b2x = -1000
+    if gbulletx > b2x and gbulletx < b2x + 80 and gbullety > b2y and gbullety < b2y + 25:
+        gbullety = -10
+        b2x = -100
+    if abulletx > b3x and abulletx < b3x + 80 and abullety > b3y and abullety < b3y + 25:
+        abullety = 900
+        b3x = -1000
+    if gbulletx > b3x and gbulletx < b3x + 80 and gbullety > b3y and gbullety < b3y + 25:
+        gbullety = -10
+        b3x = -100
+    if abulletx > b4x and abulletx < b4x + 80 and abullety > b4y and abullety < b4y + 25:
+        abullety = 900
+        b4x = -1000
+    if gbulletx > b4x and gbulletx < b4x + 80 and gbullety > b4y and gbullety < b4y + 25:
+        gbullety = -10
+        b4x = -100
+    if abulletx > b5x and abulletx < b5x + 80 and abullety > b5y and abullety < b5y + 25:
+        abullety = 900
+        b5x = -1000
+    if gbulletx > b5x and gbulletx < b5x + 80 and gbullety > b5y and gbullety < b5y + 25:
+        gbullety = -10
+        b5x = -100
+    if abulletx > b6x and abulletx < b6x + 80 and abullety > b6y and abullety < b6y + 25:
+        abullety = 900
+        b6x = -1000
+    if gbulletx > b6x and gbulletx < b6x + 80 and gbullety > b6y and gbullety < b6y + 25:
+        gbullety = -10
+        b6x = -100
+    if abulletx > b7x and abulletx < b7x + 80 and abullety > b7y and abullety < b7y + 25:
+        abullety = 900
+        b7x = -1000
+    if gbulletx > b7x and gbulletx < b7x + 80 and gbullety > b7y and gbullety < b7y + 25:
+        gbullety = -10
+        b7x = -100
+    if abulletx > b8x and abulletx < b8x + 80 and abullety > b8y and abullety < b8y + 25:
+        abullety = 900
+        b8x = -1000
+    if gbulletx > b8x and gbulletx < b8x + 80 and gbullety > b8y and gbullety < b8y + 25:
+        gbullety = -10
+        b8x = -100
+    if abulletx > b9x and abulletx < b9x + 80 and abullety > b9y and abullety < b9y + 25:
+        abullety = 900
+        b9x = -1000
+    if gbulletx > b9x and gbulletx < b9x + 80 and gbullety > b9y and gbullety < b9y + 25:
+        gbullety = -10
+        b9x = -100
+    screen.fill((0,0,0))
+    for i in range(0,score):
+        pygame.draw.circle(screen, COLOR, (i * 50 + 20, 50), radius)
+    gx += gx_change
+    ax += ax_change
+    abullety += abullety_change
+    gbullety += gbullety_change
+    grect = (gx, gy,  80, 25)
+    arect = (ax, ay, 80, 25)
+    arect2 = (ax2, ay, 80, 25)
+    arect3 = (ax3, ay, 80, 25)
+    arect4 = (ax4, ay, 80, 25)
+    b1rect = (b1x, b1y, 80,25)
+    b2rect = (b2x, b2y, 80,25)
+    b3rect = (b3x, b3y, 80,25)
+    b4rect = (b4x, b4y, 80,25)
+    b5rect = (b5x, b5y, 80,25)
+    b6rect = (b6x, b6y, 80,25)
+    b7rect = (b7x, b7y, 80,25)
+    b8rect = (b8x, b8y, 80,25)
+    b9rect = (b9x, b9y, 80,25)
+    pygame.draw.circle(screen, COLOR, (gbulletx, gbullety), radius)
+    pygame.draw.circle(screen, COLOR, (abulletx, abullety), radius)
+    pygame.draw.rect(screen,COLOR,arect)
+    pygame.draw.rect(screen,COLOR,arect4)
+    pygame.draw.rect(screen,COLOR,arect2)
+    pygame.draw.rect(screen,COLOR,arect3)
+    pygame.draw.rect(screen, COLOR, grect)
+    pygame.draw.rect(screen,COLOR,b1rect)
+    pygame.draw.rect(screen,COLOR,b2rect)
+    pygame.draw.rect(screen,COLOR,b3rect)
+    pygame.draw.rect(screen,COLOR,b4rect)
+    pygame.draw.rect(screen,COLOR,b5rect)
+    pygame.draw.rect(screen,COLOR,b6rect)
+    pygame.draw.rect(screen,COLOR,b7rect)
+    pygame.draw.rect(screen,COLOR,b8rect)
+    pygame.draw.rect(screen,COLOR,b9rect)
+    pygame.display.update()
